@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { Angry, BadgeEuro } from "lucide-react";
 
 export default function Home() {
   return (
@@ -16,6 +20,65 @@ export default function Home() {
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             To get started, edit the page.tsx file.
           </h1>
+          <div className="flex w-fit flex-col gap-2">
+            <div className="flex items-center gap-2">
+              {[...Array(11)].map((_, i) => {
+                const isGreen = i % 2 !== 0;
+                return (
+                  <motion.div
+                    key={i}
+                    className="flex"
+                    animate={isGreen ? { rotate: 360 } : {}}
+                    transition={
+                      isGreen
+                        ? { repeat: Infinity, duration: 2, ease: "linear" }
+                        : {}
+                    }
+                  >
+                    <BadgeEuro
+                      className={
+                        isGreen
+                          ? "w-10 h-10 text-green-500"
+                          : "w-12 h-12 text-blue-500"
+                      }
+                    />
+                  </motion.div>
+                );
+              })}
+            </div>
+            <div className="flex w-full items-center justify-between">
+              {[...Array(11)].map((_, i) => {
+                const isMiddle = i === 5;
+                return (
+                  <motion.div
+                    key={i}
+                    className="flex justify-center"
+                    animate={
+                      isMiddle
+                        ? {
+                            scale: [
+                              1, 1.2, 1, 1.2, 1, 1.2, 1, 1.2, 1, 1.2, 1, 10,
+                              1,
+                            ],
+                          }
+                        : {
+                            opacity: [
+                              1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
+                            ],
+                          }
+                    }
+                    transition={{
+                      repeat: Infinity,
+                      duration: 9,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <Angry className="w-10 h-10 shrink-0 text-red-500" />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             Looking for a starting point or more instructions? Head over to{" "}
             <a
